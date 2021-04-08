@@ -6,7 +6,7 @@
 /*   By: mvidal-a <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:29:06 by mvidal-a          #+#    #+#             */
-/*   Updated: 2021/02/03 22:25:18 by mvidal-a         ###   ########.fr       */
+/*   Updated: 2021/04/08 10:57:28 by mvidal-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 int				get_next_line(int fd, char **line);
 ssize_t			ft_index(char *haystack, char needle);
 void			ft_swap(void **a, void **b);
+long			ft_atol(const char *str);
 
 int				ft_isspace(int c);
 char			*skip_spaces(char *str);
@@ -109,6 +110,7 @@ int				blank_str(char *line);
 int				ft_isset(char c, char *set);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_isnumber(char *str);
+int				ft_isint(char *str);
 char			*strjoin_free(char *s1, char const *s2);
 
 void			*ft_lstshift(t_list **lst);
