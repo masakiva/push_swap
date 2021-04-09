@@ -5,6 +5,7 @@ SRCS_DIR		+= sources/checker/
 #SRCS_DIR		+= sources/push_swap/
 
 SRCS			+= main.c
+SRCS			+= operations.c
 
 vpath %.c $(SRCS_DIR)
 

@@ -2,8 +2,8 @@
 *.o
 objects
 a.out*
-checker
-push_swap
+/checker
+/push_swap
 # libraries
 *.a
 *.dylib
