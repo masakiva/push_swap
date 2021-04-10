@@ -1,5 +1,48 @@
 #include "checker.h"
 
+int		print_lst(t_list *first)
+{
+	t_list	*lst;
+	int		*ptr;
+	int		i;
+
+	lst = first;
+	i = 0;
+	printf("\033[0;32m");
+	printf("\n");
+	printf("||||||||||||||||||||||||\n");
+	printf("|||||| PRINT_LIST ||||||\n");
+	printf("|||||| size = %3zu ||||||\n", ft_lstsize(lst));
+	printf("||||||||||||||||||||||||\n");
+	printf("|                      |\n");
+	while (lst != NULL)
+	{
+		ptr = lst->content;
+		printf("|  |================|  |\n");
+		printf("|  |%16p|  |\n", lst);
+		printf("|  |            #%3d|  |\n", i);
+		printf("|  |================|  |\n");
+		printf("|  |   data = %3d   |  |\n", *ptr);
+		printf("|  |    next        |  |\n");
+		printf("|  |_____||_________|  |\n");
+		printf("|        ||            |\n");
+		printf("|        \\/            |\n");
+		i++;
+		lst = lst->next;
+	}
+	if (lst == NULL)
+	{
+		printf("|  |================|  |\n");
+		printf("|  |    NULL        |  |\n");
+		printf("|  |================|  |\n");
+	}
+	printf("|                      |\n");
+	printf("|______________________|\n");
+	printf("\n");
+	printf("\033[0m\n");
+	return (0);
+}
+
 size_t	get_inst_index(char *instruction)
 {
 	const char	*inst_list[] = {
@@ -26,14 +69,15 @@ size_t	get_inst_index(char *instruction)
 	return (i);
 }
 
-void	inst_sa(t_list *stack_a, t_list *stack_b)
+void	inst_sa(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*swap;
 
 	(void)stack_b;
-	swap = stack_a->next->next;
-	stack_a->next->next = stack_a;
-	stack_a->next = swap;
+	//ft_swap((void **)stack_a, (void **)&(*stack_a)->next);
+	swap = *stack_a;
+	(*stack_a)->next = (*stack_a)->next->next;
+	(*stack_a)->next->next = swap;
 }
 
 void	execute_instructions(t_list *stack_a, char **instructions)
@@ -46,6 +90,6 @@ void	execute_instructions(t_list *stack_a, char **instructions)
 	stack_b = NULL;
 	while (*instructions != NULL)
 	{
-		inst[get_inst_index(*instructions)](stack_a, stack_b);
+		inst[get_inst_index(*instructions)](&stack_a, &stack_b);
 	}
 }

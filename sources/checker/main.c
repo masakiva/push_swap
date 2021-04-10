@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
 #include "checker.h"
 
 void	free_content(void *content)
@@ -142,7 +139,7 @@ void	print_int(void *content)
 	printf("%d\n", *(int *)content);
 }
 
-void	inst_sa(t_list *stack_a, t_list *stack_b);
+void	inst_sa(t_list **stack_a, t_list **stack_b);
 int		main(int argc, char **argv)
 {
 	t_list	*stack_a;
@@ -162,13 +159,22 @@ int		main(int argc, char **argv)
 			//write(STDOUT_FILENO, "Error\n", 6);
 			//return (EXIT_FAILURE);
 		//}
-		ft_lstiter(stack_a, print_int);
+		print_lst(stack_a);
+		//ft_lstiter(stack_a, print_int);
 		//printf("number of instructions = %zu\n", ft_arraylen(instructions));
 		//ft_printarray_fd(instructions, STDOUT_FILENO);
 		//execute_instructions(stack_a, instructions);
-		inst_sa(stack_a, NULL);
+	t_list	*link0;
+	t_list	*link2;
+
+	link0 = stack_a;
+	link2 = stack_a->next->next;
+	stack_a = stack_a->next;
+	stack_a->next = link0;
+	stack_a->next->next = link2;
+	//print_lst(swap);
 		printf("\nRESULT\n");
-		ft_lstiter(stack_a, print_int);
+		print_lst(stack_a);
 		ft_lstclear(&stack_a, free_content);
 		//free(instructions);
 	}
