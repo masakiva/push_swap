@@ -71,13 +71,15 @@ size_t	get_inst_index(char *instruction)
 
 void	inst_sa(t_list **stack_a, t_list **stack_b)
 {
-	t_list	*swap;
+	t_list	*link0;
+	t_list	*link2;
 
 	(void)stack_b;
-	//ft_swap((void **)stack_a, (void **)&(*stack_a)->next);
-	swap = *stack_a;
-	(*stack_a)->next = (*stack_a)->next->next;
-	(*stack_a)->next->next = swap;
+	link0 = *stack_a;
+	link2 = (*stack_a)->next->next;
+	*stack_a = (*stack_a)->next;
+	(*stack_a)->next = link0;
+	(*stack_a)->next->next = link2;
 }
 
 void	execute_instructions(t_list *stack_a, char **instructions)
@@ -91,5 +93,6 @@ void	execute_instructions(t_list *stack_a, char **instructions)
 	while (*instructions != NULL)
 	{
 		inst[get_inst_index(*instructions)](&stack_a, &stack_b);
+		instructions++;
 	}
 }
