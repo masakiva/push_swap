@@ -10,6 +10,9 @@ a.out*
 *.swiftdoc
 *.swiftmodule
 
+# subject
+subject.pdf
+
 # macos garbage
 .DS_Store
 

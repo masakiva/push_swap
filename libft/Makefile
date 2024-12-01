@@ -6,7 +6,7 @@
 #    By: mvidal-a <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/23 13:17:34 by mvidal-a          #+#    #+#              #
-#    Updated: 2021/04/08 10:57:55 by mvidal-a         ###   ########.fr        #
+#    Updated: 2022/11/22 18:21:20 by mvidal-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,8 +78,16 @@ SRCS_CUSTOM	+= push_int_to_array.c
 SRCS_CUSTOM	+= ft_isnumber.c
 SRCS_CUSTOM	+= skip_spaces.c
 SRCS_CUSTOM	+= ft_set_index.c
+SRCS_CUSTOM	+= skip_int.c
 SRCS_CUSTOM	+= ft_atol.c
 SRCS_CUSTOM	+= ft_isint.c
+SRCS_CUSTOM	+= ft_atoi_sign.c
+SRCS_CUSTOM	+= ft_atof.c
+SRCS_CUSTOM	+= skip_float.c
+SRCS_CUSTOM	+= ft_pow.c
+SRCS_CUSTOM	+= ft_sqrt.c
+SRCS_CUSTOM	+= ft_sqrt_long.c
+SRCS_CUSTOM	+= ft_sqrt_double.c
 
 VPATH		= part_1:part_2:bonus:custom
 
@@ -97,7 +105,7 @@ INCLUDES	= ./
 
 HEADER		= $(INCLUDES)libft.h
 
-CC			= clang
+CC			= cc
 
 CFLAGS		+= -Wall
 CFLAGS		+= -Wextra
@@ -111,9 +119,11 @@ $(NAME):		$(OBJS)
 
 bonus:			$(NAME) $(OBJS_BONUS)
 				ar rcs $(NAME) $(OBJS_BONUS)
+				touch bonus
 
 custom:			$(NAME) $(OBJS_CUSTOM)
 				ar rcs $(NAME) $(OBJS_CUSTOM)
+				touch custom
 
 $(OBJDIR):
 				mkdir $@
@@ -121,11 +131,11 @@ $(OBJDIR):
 $(OBJDIR)/%.o:	%.c
 				$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
 
-$(OBJS):		$(HEADER) | $(OBJDIR)
+$(OBJS):		Makefile $(HEADER) | $(OBJDIR)
 
-$(OBJS_BONUS):	$(HEADER)
+$(OBJS_BONUS):	Makefile $(HEADER)
 
-$(OBJS_CUSTOM):	$(HEADER)
+$(OBJS_CUSTOM):	Makefile $(HEADER)
 
 clean:
 				$(RM) -r $(OBJDIR)
@@ -135,4 +145,4 @@ fclean:			clean
 
 re:				fclean all
 
-.PHONY:			all clean fclean re bonus custom
+.PHONY:			all clean fclean re

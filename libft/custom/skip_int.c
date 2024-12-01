@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isnumber.c                                      :+:      :+:    :+:   */
+/*   skip_int.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvidal-a <mvidal-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/02 15:55:50 by mvidal-a          #+#    #+#             */
-/*   Updated: 2022/11/16 17:15:58 by mvidal-a         ###   ########.fr       */
+/*   Created: 2022/11/08 14:50:10 by mvidal-a          #+#    #+#             */
+/*   Updated: 2022/11/08 14:53:53 by mvidal-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isnumber(const char* str)
+char*	skip_int(char* str)
 {
-	while (ft_isspace(*str))
+	str = skip_spaces(str);
+	if (*str == '-' || *str == '+')
 		str++;
-	if (ft_isdigit(*str) || *str == '-')
+	while (*str >= '0' && *str <= '9')
 		str++;
-	else
-		return (FALSE);
-	while (!ft_isspace(*str) && *str != '\0')
-	{
-		if (!ft_isdigit(*str))
-			return (FALSE);
-		str++;
-	}
-	return (TRUE);
+	return (str);
 }
+

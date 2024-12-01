@@ -1,37 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_atoi_sign.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvidal-a <mvidal-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 16:34:03 by mvidal-a          #+#    #+#             */
-/*   Updated: 2022/11/16 17:16:27 by mvidal-a         ###   ########.fr       */
+/*   Created: 2022/11/16 16:28:08 by mvidal-a          #+#    #+#             */
+/*   Updated: 2022/11/16 17:24:01 by mvidal-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char* str)
-{
-	long		nb;
-	int8_t		sign;
+/*
+** ft_atoi_sign return value depends on the beginning characters of str:
+**		-1 if the number begins with '-' (negative or null number)
+**		0 if the number does not begin with a digit (error)
+**		1 otherwise (positive or null number)
+*/
 
-	sign = 1;
+int8_t		ft_atoi_sign(const char* str, int* nb)
+{
+	int8_t	sign_or_error;
+
+	sign_or_error = 1;
 	str = skip_spaces((char*)str);
 	if (*str == '-')
 	{
-		sign = -1;
+		sign_or_error = -1;
 		str++;
 	}
 	else if (*str == '+')
 		str++;
-	nb = 0;
+	*nb = 0;
+	if (*str < '0' || *str > '9')
+		sign_or_error = FAILURE;
 	while (*str >= '0' && *str <= '9')
 	{
-		nb = nb * 10 + *str - '0';
+		*nb = *nb * 10 + *str - '0';
 		str++;
 	}
-	return (nb * sign);
+	*nb *= sign_or_error;
+	return (sign_or_error);
 }
-

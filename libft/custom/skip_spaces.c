@@ -6,13 +6,13 @@
 /*   By: mvidal-a <mvidal-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:24:13 by mvidal-a          #+#    #+#             */
-/*   Updated: 2021/02/03 22:24:43 by mvidal-a         ###   ########.fr       */
+/*   Updated: 2022/11/08 14:53:46 by mvidal-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*skip_spaces(char *str)
+char*	skip_spaces(char* str)
 {
 	while (ft_isspace(*str))
 		str++;

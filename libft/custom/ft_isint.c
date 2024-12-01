@@ -3,47 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isint.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvidal-a <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mvidal-a <mvidal-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/30 16:09:57 by mvidal-a          #+#    #+#             */
-/*   Updated: 2021/04/08 10:56:32 by mvidal-a         ###   ########.fr       */
+/*   Created: 2022/11/08 16:32:47 by mvidal-a          #+#    #+#             */
+/*   Updated: 2022/12/02 20:27:37 by mvidal-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
 
-int		check_int_limits(char *str, int neg)
+t_bool	ft_isint(char* str)
 {
-	long	tmp;
+	size_t	i;
+	long	nb;
 
-	tmp = ft_atol(str);
-	if ((neg == FALSE && tmp > 2147483647)
-			|| (neg == TRUE && tmp > 2147483648))
+	str = skip_spaces(str);
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (ft_isdigit(str[i]))
+		i++;
+	if (i > 11)
+		return (FALSE);
+	nb = ft_atol(str);
+	if (nb > INT_MAX || nb < INT_MIN)
 		return (FALSE);
 	return (TRUE);
 }
 
-int		ft_isint(char *str)
-{
-	size_t	len;
-	t_byte	neg;
-
-	neg = FALSE;
-	if (str[0] == '-')
-	{
-		str++;
-		neg = TRUE;
-	}
-	len = 0;
-	while (str[len] == '0')
-		str++;
-	while (str[len] != '\0')
-	{
-		if (!ft_isdigit(str[len]))
-			return (FALSE);
-		len++;
-	}
-	if (len > 10 || (len == 10 && !check_int_limits(str, neg)))
-		return (FALSE);
-	return (TRUE);
-}

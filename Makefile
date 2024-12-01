@@ -1,73 +1,104 @@
+#--------------------------------------------------#
+################# PROGRAM NAME #####################
+#--------------------------------------------------#
 NAME		+= checker
 #NAME		+= push_swap
 
-SRCS_DIR		+= sources/checker/
-#SRCS_DIR		+= sources/push_swap/
+#-----------------------------------------------#
+################### PATHS #######################
+#-----------------------------------------------#
+HDRS_PATH	+= ./includes/
+SRCS_PATH	+= ./sources/checker/
+#SRCS_PATH	+= ./sources/push_swap/
+OBJS_PATH	+= ./objects/
 
+#-----------------------------------------------#
+################## HEADERS ######################
+#-----------------------------------------------#
+HDRS			+= checker.h
+
+vpath %.h $(HDRS_PATH)
+
+#-----------------------------------------------#
+################## SOURCES ######################
+#-----------------------------------------------#
 SRCS			+= main.c
 SRCS			+= operations.c
 
-vpath %.c $(SRCS_DIR)
+vpath %.c $(SRCS_PATH)
 
-HDRS_DIR		= includes/
+#-----------------------------------------------#
+################## OBJECTS ######################
+#-----------------------------------------------#
+OBJS		+= $(addprefix $(OBJS_PATH), $(SRCS:.c=.o))
 
-HDRS			+= checker.h
+#------------------------------------------------#
+################## COMPILER ######################
+#------------------------------------------------#
+CC			= cc
 
-vpath %.h $(HDRS_DIR)
-
-OBJS_DIR		= objects/
-
-OBJS			= $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
-
-LIBFT_DIR	= libft/
-
-CC			= clang
-
+#-----------------------------------------------#
+################### FLAGS #######################
+#-----------------------------------------------#
 CFLAGS		+= -Wall
 CFLAGS		+= -Werror
 CFLAGS		+= -Wextra
 
-CPPFLAGS	+= -I $(HDRS_DIR)
-CPPFLAGS	+= -I $(LIBFT_DIR)
+CPPFLAGS	+= -I $(HDRS_PATH)
 
-LDFLAGS		+= -L $(LIBFT_DIR)
+# Multiple header directories
+#CPPFLAGS	+= $(foreach DIR, $(HDRS_DIRS), $(addprefix -I , $(DIR)))
 
+#-----------------------------------------------#
+################# LIBRARIES #####################
+#-----------------------------------------------#
+LIBFT_PATH	+= ./libft/
+LIBFT_NAME	+= libft.a
+CPPFLAGS	+= -I $(LIBFT_PATH)
+LDFLAGS		+= -L $(LIBFT_PATH)
 LDLIBS		+= -lft
 
+#-----------------------------------------------#
+################### DEBUG #######################
+#-----------------------------------------------#
 ifeq ($(d), 0)
-	CFLAGS	+= -Wpadded
 	CFLAGS	+= -g3
+	CFLAGS	+= -Wpadded
 	CFLAGS	+= -fsanitize=address,undefined
 	LDFLAGS	+= -fsanitize=address,undefined
 endif
 
+
+#-----------------------------------------------#
+################### RULES #######################
+#-----------------------------------------------#
 all:			$(NAME)
 
-$(NAME):		$(LIBFT_DIR)libft.a $(OBJS)
-				$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
+$(NAME):	$(LIBFT_PATH)$(LIBFT_NAME) $(OBJS)
+					$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $@
 
-$(OBJS_DIR)%.o:	%.c
-				$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+$(OBJS_PATH)%.o:	%.c
+					$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-$(OBJS):		$(HDRS) $(LIBFT_DIR)libft.a | $(OBJS_DIR)
+$(OBJS):	Makefile $(HDRS) | $(OBJS_PATH)
 
-$(OBJS_DIR):
-				mkdir $@
+$(OBJS_PATH):
+					mkdir -p $@
 
-$(LIBFT_DIR)libft.a:
-				$(MAKE) -C $(LIBFT_DIR) bonus custom
+$(LIBFT_PATH)$(LIBFT_NAME):
+					$(MAKE) -C $(LIBFT_PATH) bonus custom
 
 lib:
-				$(MAKE) -C $(LIBFT_DIR) bonus custom
-				$(MAKE) $(NAME)
+					$(MAKE) -C $(LIBFT_PATH) bonus custom
+					$(MAKE) $(NAME)
 
 clean:
-				$(MAKE) -C $(LIBFT_DIR) fclean
-				$(RM) -r $(OBJS_DIR)
+					$(MAKE) -C $(LIBFT_PATH) fclean
+					$(RM) -r $(OBJS_PATH)
 
-fclean:			clean
-				$(RM) $(NAME)
+fclean:		clean
+					$(RM) $(NAME)
 
 re:				fclean all
 
-.PHONY:			all clean fclean re libft
+.PHONY:		all clean fclean re libft

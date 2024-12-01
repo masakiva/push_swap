@@ -6,7 +6,7 @@
 /*   By: mvidal-a <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:29:06 by mvidal-a          #+#    #+#             */
-/*   Updated: 2021/04/08 10:57:28 by mvidal-a         ###   ########.fr       */
+/*   Updated: 2022/12/02 20:27:04 by mvidal-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdint.h>
 # include <sys/types.h>
 
-# define ERROR		-1
+# define ERROR	-1
 
 # define TRUE	1
 # define FALSE	0
@@ -25,7 +25,7 @@
 # define SUCCESS	1
 # define FAILURE	0
 
-# define WRITE_SUCCESS -2
+# define NOT_FOUND	-1
 
 typedef struct	s_list
 {
@@ -34,6 +34,7 @@ typedef struct	s_list
 }				t_list;
 
 typedef	uint8_t	t_byte;
+typedef	uint8_t	t_bool;
 
 /*
 **	part 1
@@ -75,13 +76,13 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			**ft_split(char const *s, char c);
 char			*ft_itoa(int n);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-ssize_t			ft_putchar_fd(char c, int fd);
-ssize_t			ft_putstr_fd(const char *s, int fd);
-ssize_t			ft_putendl_fd(const char *s, int fd);
-ssize_t			ft_putnbr_fd(int n, int fd);
+t_bool			ft_putchar_fd(char c, int fd);
+t_bool			ft_putstr_fd(const char *s, int fd);
+t_bool			ft_putendl_fd(const char *s, int fd);
+t_bool			ft_putnbr_fd(int n, int fd);
 
 /*
-**	bonus (chained list utils)
+**	bonus (chained list management)
 */
 
 t_list			*ft_lstnew(void *content);
@@ -102,15 +103,20 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 int				get_next_line(int fd, char **line);
 ssize_t			ft_index(char *haystack, char needle);
 void			ft_swap(void **a, void **b);
-long			ft_atol(const char *str);
 
 int				ft_isspace(int c);
-char			*skip_spaces(char *str);
+char*			skip_spaces(char* str);
+char*			skip_int(char* str);
+char*			skip_float(char* str);
 int				blank_str(char *line);
 int				ft_isset(char c, char *set);
 int				ft_strcmp(const char *s1, const char *s2);
-int				ft_isnumber(char *str);
-int				ft_isint(char *str);
+int				ft_isnumber(const char* str);
+long			ft_atol(const char* str);
+int8_t			ft_atoi_sign(const char* str, int* nb);
+double			ft_atof(const char* str);
+t_bool			ft_isint(char* str);
+
 char			*strjoin_free(char *s1, char const *s2);
 
 void			*ft_lstshift(t_list **lst);
@@ -130,5 +136,10 @@ void			sort_str_array(char **array);
 int				*push_int_to_array(int *array, size_t array_size, int nb);
 
 int				ft_set_index(char c, char *set);
+
+double			ft_pow(double nb, int power);
+int				ft_sqrt(int nb);
+long			ft_sqrt_long(long nb);
+double			ft_sqrt_double(double nb);
 
 #endif
