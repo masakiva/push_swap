@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
 t_bool	ft_putnbr_fd(int n, int fd)
 {

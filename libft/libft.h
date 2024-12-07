@@ -111,7 +111,7 @@ char*			skip_float(char* str);
 int				blank_str(char *line);
 int				ft_isset(char c, char *set);
 int				ft_strcmp(const char *s1, const char *s2);
-int				ft_isnumber(const char* str);
+t_bool			ft_isnumber(char* str);
 long			ft_atol(const char* str);
 int8_t			ft_atoi_sign(const char* str, int* nb);
 double			ft_atof(const char* str);
@@ -119,6 +119,7 @@ t_bool			ft_isint(char* str);
 
 char			*strjoin_free(char *s1, char const *s2);
 
+t_bool	  ft_putbool_fd(t_bool val, int fd);
 void			*ft_lstshift(t_list **lst);
 
 size_t			ft_varnamelen(char *str);

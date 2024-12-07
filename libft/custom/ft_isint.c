@@ -18,6 +18,8 @@ t_bool	ft_isint(char* str)
 	size_t	i;
 	long	nb;
 
+  if (!ft_isnumber(str))
+    return (FALSE);
 	str = skip_spaces(str);
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')

@@ -12,13 +12,12 @@
 
 #include "libft.h"
 
-int		ft_isnumber(const char* str)
+t_bool		ft_isnumber(char* str)
 {
-	while (ft_isspace(*str))
-		str++;
-	if (ft_isdigit(*str) || *str == '-')
-		str++;
-	else
+	str = skip_spaces(str);
+  if (*str == '-')
+    str++;
+	if (!ft_isdigit(*str))
 		return (FALSE);
 	while (!ft_isspace(*str) && *str != '\0')
 	{
