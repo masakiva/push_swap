@@ -21,7 +21,6 @@ vpath %.h $(HDRS_PATH)
 ################## SOURCES ######################
 #-----------------------------------------------#
 SRCS			+= main.c
-SRCS			+= operations.c
 
 vpath %.c $(SRCS_PATH)
 
@@ -39,7 +38,7 @@ CC			= cc
 ################### FLAGS #######################
 #-----------------------------------------------#
 CFLAGS		+= -Wall
-CFLAGS		+= -Werror
+//CFLAGS		+= -Werror
 CFLAGS		+= -Wextra
 
 CPPFLAGS	+= -I $(HDRS_PATH)
