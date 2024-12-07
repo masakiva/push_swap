@@ -23,5 +23,9 @@ subject.pdf
 # ctags
 tags
 
+# lsp info
+compile_commands.json
+/.cache
+
 # debug
 .gdb_history
