@@ -8,8 +8,10 @@ t_bool  append_input_nb_to_list(char *input, t_list **alst)
   int     *cur_int;
   t_list  *cur_link;
 
-  if (ft_isint(input))
+  while (*input != '\0')
   {
+    if (!ft_isint(input))
+      return (FAILURE);
     cur_int = (int *)malloc(sizeof(int));
     if (cur_int == NULL)
       return (FAILURE);
@@ -18,10 +20,9 @@ t_bool  append_input_nb_to_list(char *input, t_list **alst)
     if (cur_link == NULL)
       return (FAILURE);
     ft_lstadd_back(alst, cur_link);
-    return (SUCCESS);
+    input = skip_int(input);
   }
-  else
-    return (FAILURE);
+  return (SUCCESS);
 }
 
 t_list  *init_stack(char **input_arr)
@@ -52,17 +53,16 @@ int main(int argc, char **argv)
 {
   t_stacks  stacks;
 
-  if (argc > 1)
-	{
-    stacks.a = init_stack(argv + 1);
-    if (stacks.a == NULL)
-    {
-      ft_putstr_fd("Error\n", STDERR_FILENO);
-      return (EXIT_FAILURE);
-    }
-    ft_lstiter(stacks.a, print_nb_lst);
-    ft_lstclear(&stacks.a, free_content);
-	}
+  if (argc == 1)
+    return (EXIT_SUCCESS);
 
+  stacks.a = init_stack(argv + 1);
+  if (stacks.a == NULL)
+  {
+    ft_putstr_fd("Error\n", STDERR_FILENO);
+    return (EXIT_FAILURE);
+  }
+  ft_lstiter(stacks.a, print_nb_lst);
+  ft_lstclear(&stacks.a, free_content);
 	return (EXIT_SUCCESS);
 }
