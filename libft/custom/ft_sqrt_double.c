@@ -14,7 +14,7 @@
 
 #define	DELTA	0.000001
 
-double	ft_abs(double nb)
+double	ft_abs_double(double nb)
 {
 	return (nb < 0.0 ? nb * -1.0 : nb);
 }
@@ -56,7 +56,7 @@ double	ft_abs(double nb)
 //
 //	increment = 0.5;
 //	i = 0;
-//	while (ft_abs((sqrt * sqrt) / nb - 1.0) >= DELTA)
+//	while (ft_abs_double((sqrt * sqrt) / nb - 1.0) >= DELTA)
 //	{
 //		while (sqrt * sqrt <= nb)
 //		{
@@ -94,7 +94,7 @@ double	ft_sqrt_double(double nb)
 	{
         root = (guess + (nb / guess)) / 2.0;
  
-        if (ft_abs(root / guess - 1.0) < DELTA)
+        if (ft_abs_double(root / guess - 1.0) < DELTA)
             break;
  
         guess = root;

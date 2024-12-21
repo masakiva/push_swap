@@ -1,25 +1,15 @@
-#include "libft.h"
 #include "push_swap.h"
 #include <stdlib.h>
 #include <unistd.h>
 
-t_bool  append_input_nb_to_list(char *input, t_list **alst)
+t_bool  push_nbs_to_stack(char *input, t_list **alst)
 {
-  int     *cur_int;
-  t_list  *cur_link;
-
   while (*input != '\0')
   {
     if (!ft_isint(input))
       return (FAILURE);
-    cur_int = (int *)malloc(sizeof(int));
-    if (cur_int == NULL)
+    if (append_nb_to_list(alst, ft_atoi(input)) == FAILURE)
       return (FAILURE);
-    *cur_int = ft_atoi(input);
-    cur_link = ft_lstnew(cur_int);
-    if (cur_link == NULL)
-      return (FAILURE);
-    ft_lstadd_back(alst, cur_link);
     input = skip_int(input);
   }
   return (SUCCESS);
@@ -27,26 +17,32 @@ t_bool  append_input_nb_to_list(char *input, t_list **alst)
 
 t_list  *init_stack(char **input_arr)
 {
-  t_list  *stack_a;
+  t_list  *stack;
+  t_bool   err;
 
+  stack = NULL;
+  err = FALSE;
   while (*input_arr != NULL)
   {
-    if (append_input_nb_to_list(*input_arr, &stack_a) == FAILURE)
-      return (NULL);
+    if (push_nbs_to_stack(*input_arr, &stack) == FAILURE)
+    {
+      err = TRUE;
+      break ;
+    }
     input_arr++;
   }
-  return (stack_a);
+  if (err == TRUE || has_duplicates(stack) == TRUE)
+  {
+    ft_lstclear(&stack, free_content);
+    return (NULL);
+  }
+  return (stack);
 }
 
 void  print_nb_lst(void *content)
 {
   ft_putnbr_fd(*(int *)content, STDOUT_FILENO);
   ft_putchar_fd('\n', STDOUT_FILENO);
-}
-
-void  free_content(void *content)
-{
-  free(content);
 }
 
 int main(int argc, char **argv)

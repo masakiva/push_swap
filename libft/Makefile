@@ -89,6 +89,7 @@ SRCS_CUSTOM	+= ft_sqrt.c
 SRCS_CUSTOM	+= ft_sqrt_long.c
 SRCS_CUSTOM	+= ft_sqrt_double.c
 SRCS_CUSTOM	+= ft_putbool_fd.c
+SRCS_CUSTOM	+= ft_abs.c
 
 VPATH		= part_1:part_2:bonus:custom
 

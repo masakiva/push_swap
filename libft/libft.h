@@ -138,6 +138,7 @@ int				*push_int_to_array(int *array, size_t array_size, int nb);
 
 int				ft_set_index(char c, char *set);
 
+int      ft_abs(int n);
 double			ft_pow(double nb, int power);
 int				ft_sqrt(int nb);
 long			ft_sqrt_long(long nb);
