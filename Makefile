@@ -21,6 +21,7 @@ vpath %.h $(HDRS_PATH)
 ################## SOURCES ######################
 #-----------------------------------------------#
 SRCS			+= main.c
+SRCS			+= parsing.c
 SRCS			+= utils.c
 SRCS			+= check_duplicates.c
 
